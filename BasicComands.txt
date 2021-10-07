@@ -1,0 +1,19 @@
+
+//git add remote link 
+git remote add origin https://github.com/saravanasai/RefreshReact.git
+
+
+//setUp for Visual Studio Code on Dev Environment
+
+1.Simple React Sinpets -by Burke Holland
+2.emmet setting :
+      
+       Emmet Include Languages : Item:javascript ,value:javascriptreact
+3.install Node Globly 
+      
+       Tocheck: node -v //output:v16.2.0
+
+
+//basic application creation 
+   
+   1. npx create-react-app tuts1  // npx create-react-app tuts1

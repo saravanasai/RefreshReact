@@ -9,11 +9,17 @@ const Home = () => {
     {tittle:"React Tuts 1",author:"saravana",id:"2"},
     {tittle:"React Tuts 2",author:"Bond",id:"3"},
   ]);
+  
+  const handleDelete=(id)=>{
+
+     const newBlog=blogs.filter(blog=>blog.id!==id);
+     setBlogs(newBlog);
+
+  }
 
   return (
     <div className="home">
-      <BlogList blogpass={blogs} tittle="All Blogs" />
-      <BlogList blogpass={blogs.filter((blog)=>blog.author==="sai")} tittle="sai" />
+      <BlogList blogpass={blogs} tittle="All Blogs" handleDelete={handleDelete}/>
     </div>
   );
 };

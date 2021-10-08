@@ -184,3 +184,73 @@
                   );
                };
           ======================Example For Component Reuseability========================= 
+          =====================Example For passing function as Props=======================
+           
+               +++++++home component+++++++++
+               const Home = () => {
+                     const [blogs,setBlogs]=useState([
+                        {tittle:"React Tuts",author:"sai",id:"1"},
+                        {tittle:"React Tuts 1",author:"saravana",id:"2"},
+                        {tittle:"React Tuts 2",author:"Bond",id:"3"},
+                     ]); 
+                     const handleDelete=(id)=>{
+
+                        const newBlog=blogs.filter(blog=>blog.id!==id);
+                        setBlogs(newBlog);
+
+                     }
+                     return (
+                        <div className="home">
+                           <BlogList blogpass={blogs} tittle="All Blogs" handleDelete={handleDelete}/>
+                        </div>
+                     );
+                  }; 
+               +++++++home component+++++++++ 
+               +++++++Bloglist component+++++++++ 
+                  const BlogList = ({blogpass,tittle,handleDelete}) => {
+                        return (
+                           <div className="blog-list">
+                              <h2>{tittle}</h2>
+                              {blogpass.map((blog) => (
+                              <div className="blog-preview" key={blog.id}>
+                                 <h3>{blog.tittle}</h3>
+                                 <p>Author - {blog.author}</p>
+                                 <button onClick={()=>handleDelete(blog.id)}>Delete</button>
+                              </div>
+                              ))}
+                           </div>
+                        );
+                     };
+               +++++++Bloglist component+++++++++ 
+            
+          =====================Example For passing function as Props=======================
+
+//useEffect Hook
+         
+         definition:
+
+               its is also one of the react hook which runs after every update in state or runs after every rerender.
+               its also knows as SideEffects.
+               it does not return any values so,no need to store in const
+                
+                  !--syntax--!
+                   import {useEffect} From 'react';
+                    
+                    useEffect(()=>{
+                        console.log('code block);
+                    });
+                  
+                  !--usecase--!
+                         * To fetch api or to authenticate the user etc
+
+         useEffect hook Dependencies:
+               
+               !--syntax--!
+                   import {useEffect} From 'react';
+                    
+                    useEffect(()=>{
+                        console.log('code block);
+                    },['state variable']);
+               
+                note: if we pass dependencies it runs only once on first render 
+                and again runs if 'state variable' changed on dependency

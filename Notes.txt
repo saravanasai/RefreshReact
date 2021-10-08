@@ -1,0 +1,186 @@
+
+
+
+1. In a component we can output dynamic value using {} phaeses 
+   but at same time we cannot output a boolean or object 
+2. all the dynamic values should be only inside the component function 
+3. by using this we can also use for attribute 
+       eg : <a href="something"></a> 
+               can be use like 
+            <a href={something}></a> 
+4. () paranthese invokes a function should not use like this 
+5. Example to handle a Click Events 
+    
+     ================sample code 1.1================================================
+
+         const Home = () => {
+
+               const handleClick=()=>
+               {
+                     console.log("ok");
+               }
+               
+               const handleClickAgain=(name)=>
+               {
+                  console.log(name);
+               }
+
+               return (
+                  <div className="home">
+                     <h1>Homepage</h1>
+                     <button onClick={handleClick}>click me</button>
+                     {/* functions with argument and event  */}
+                     <button onClick={()=>handleClickAgain("Saravana")}>click me</button>
+                  </div>
+               );
+            };
+
+     ================end sample code 1.1================================================
+
+ //Short cut for creating a new component 
+   
+      1.sfc->stateless function component 
+
+
+//Styling a component 
+
+      1.Inline css style can be done only as javascript objects 
+         eg: style={{
+            color: "white",
+            backgroundColor: "#f1356d",
+            borderRadius: "8px",
+          }}
+
+
+
+
+//Hooks 
+
+   Defenition of hooks 
+      
+        1.Hooks in react used to track a changes in data used by a  Component.There different Hooks,
+           its also a special function
+            
+        2. How does it looks 
+              
+               1. it start with "use" keyword eg:useState,useEffect
+               2. import { useState } from "react"; import it from react library 
+               3. its returns a Two Object ->it can be any datatype like object,array,boolean etc.
+               4. eg Code how to use it 
+                 
+                  ==============useState Hook Example Code=======================
+                  const Home = () => {
+                           const [name,setName]=useState('saravana');
+                           const handleClick=()=>
+                           {
+                                 setName('sai');
+                           }
+                           return (
+                              <div className="home">
+                                 <h1>My Name is {name}</h1>
+                                 <button onClick={handleClick}>click me</button>
+                              </div>
+                           );
+                     }; 
+                  ==============useState Hook Example Code=======================
+
+//Listing through the components 
+ 
+              =================example code=====================
+                  const Home = () => {
+                     const [blogs,setBlogs]=useState([
+                        {tittle:"React Tuts",author:"sai",id:"1"},
+                        {tittle:"React Tuts 1",author:"saravana",id:"2"},
+                        {tittle:"React Tuts 2",author:"Bond",id:"3"},
+                     ]);
+                     return (
+                        <div className="home">
+                           {blogs.map((blog)=>(
+                           <div className="blog-preview" key={blog.id}>
+                              <h3>{blog.tittle}</h3>
+                              <p>Author - {blog.author}</p>
+                           </div>
+                           ))}
+                        </div>
+                     );
+                  };
+              =================example code=====================
+
+
+
+
+//props 
+
+       Defenition: 
+           Props are the objects used to pass the data from parent component to Child Component.
+           it helps us to make a component reusable
+
+      
+      1.way To pass a props to Component 
+             
+              ================example Code================================
+               const Home = () => {
+                     const [blogs,setBlogs]=useState([
+                        {tittle:"React Tuts",author:"sai",id:"1"},
+                        {tittle:"React Tuts 1",author:"saravana",id:"2"},
+                        {tittle:"React Tuts 2",author:"Bond",id:"3"},
+                     ]);
+                     return (
+                        <div className="home">
+                           <BlogList blogpass={blogs} tittle="All Blogs" />
+                        </div>
+                     );
+                  };
+              ================example Code================================
+      2. Way to receive Props in Child Component 
+       
+            ==========================example code traditional way============================
+               const BlogList = (props) => {
+                        const blogs=props.blogs;  
+                        const tittle=props.tittle;
+                     return (
+                        <div className="blog-list">
+                           <h2>{{tittle}}</h2>
+                           {blogs.map((blog) => (
+                           <div className="blog-preview" key={blog.id}>
+                              <h3>{blog.tittle}</h3>
+                              <p>Author - {blog.author}</p>
+                           </div>
+                           ))}
+                        </div>
+                     );
+                  };
+            ==========================example code traditional way============================
+         
+           ======================example Code Easy Way ====================================
+           const BlogList = ({blogpass,tittle}) => {
+                  return (
+                     <div className="blog-list">
+                        <h2>{tittle}</h2>
+                        {blogpass.map((blog) => (
+                        <div className="blog-preview" key={blog.id}>
+                           <h3>{blog.tittle}</h3>
+                           <p>Author - {blog.author}</p>
+                        </div>
+                        ))}
+                     </div>
+                  );
+               };
+           ======================example Code Easy Way ====================================
+          
+          ======================Example For Component Reuseability========================= 
+            const Home = () => {
+                  const [blogs,setBlogs]=useState([
+                     {tittle:"React Tuts",author:"sai",id:"1"},
+                     {tittle:"React Tuts 1",author:"saravana",id:"2"},
+                     {tittle:"React Tuts 2",author:"Bond",id:"3"},
+                  ]);
+
+                  return (
+                     <div className="home">
+                        <BlogList blogpass={blogs} tittle="All Blogs" />
+                        <BlogList blogpass={blogs.filter((blog)=>blog.author==="sai")} tittle="sai" />
+                     </div>
+                  );
+               };
+          ======================Example For Component Reuseability========================= 

@@ -17,3 +17,5 @@ git remote add origin https://github.com/saravanasai/RefreshReact.git
 //basic application creation 
    
    1. npx create-react-app tuts1  // npx create-react-app tuts1
+   2. to start project npm run start
+   3. react developer tools (play around it to get knowledge)

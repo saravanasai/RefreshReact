@@ -254,3 +254,125 @@
                
                 note: if we pass dependencies it runs only once on first render 
                 and again runs if 'state variable' changed on dependency
+      
+       useEffect hook dependencies:
+                  
+        =========================Example Code To use Fecth in UseEffect==============
+        const Home = () => {
+               const [blogs,setBlogs]=useState(null);
+               useEffect(()=>{
+                     fetch('http://localhost:8000/Blogs')
+                     .then(res=>{
+                        return res.json();
+                     }).then(data=>{
+                        setBlogs(data);
+                     })
+               },[])
+               return (
+                  <div className="home">
+                     {blogs && <BlogList blogpass={blogs} tittle="All Blogs"/>}
+                  </div>
+               );
+            };
+        =========================Example Code To use Fecth in UseEffect==============
+
+
+//Conditional redering 
+         
+         sample Code: && is used to evaluvate those things before fetch returns data 
+         ====================================
+                 <div className="home">
+                     {blogs && <BlogList blogpass={blogs} tittle="All Blogs"/>}
+                  </div>
+         ===========================
+         note:We can also use conditional renderings to wait till the response comes form api 
+   
+//Error Handling 
+       
+       ==========Example Code=============================================
+         const Home = () => {
+                  const [blogs,setBlogs]=useState(null);
+                  const [is_pending,setpending]=useState(true);
+                  const [error,seterror]=useState(null);
+ 
+                  useEffect(()=>{
+                        fetch('http://localhost:8000/Blogs')
+                        .then(res=>{
+                           if(!res.ok)
+                           {
+                              throw Error('Could not get Resource');
+                           }
+                           return res.json();
+                        }).then(data=>{
+                           setBlogs(data);
+                           setpending(false);
+                           seterror(null);
+                        }).catch(err=>{
+                           setpending(false);
+                           seterror(err.message);
+                        })
+                  },[])
+
+                  return (
+                     <div className="home">
+                        {is_pending && <div>Loading</div>}
+                        {error && <div>{error}</div>}
+                        {blogs && <BlogList blogpass={blogs} tittle="All Blogs"/>}
+                     </div>
+                  );
+            };
+       ==========Example Code=============================================
+
+
+//Custom Hooks
+        
+          definition: its used to for More Reuseability of Code in Different Component
+          
+      ======================Example Code For Custome hook Reuseablity================
+         import { useEffect,useState } from "react"
+
+            const useFetch = (url)=>{
+
+            const [data,setData]=useState(null);
+            const [is_pending,setpending]=useState(true);
+            const [error,seterror]=useState(null);
+
+               useEffect(()=>{
+                  fetch(url)
+                  .then(res=>{
+                     if(!res.ok)
+                     {
+                        throw Error('Could not get Resource');
+                     }
+                     return res.json();
+                  }).then(data=>{
+                     setData(data);
+                     setpending(false);
+                     seterror(null);
+                  }).catch(err=>{
+                     setpending(false);
+                     seterror(err.message);
+                  })
+               },[url])
+
+
+               return {data,is_pending,error};
+
+         }
+
+         export default useFetch;
+
+            //useage 
+             
+              const Home = () => {
+                  const {data:blogs,is_pending,error}=useFetch('http://localhost:8000/Blogs');
+                  return (
+                     <div className="home">
+                        {is_pending && <div>Loading</div>}
+                        {error && <div>{error}</div>}
+                        {blogs && <BlogList blogpass={blogs} tittle="All Blogs"/>}
+                     </div>
+                  );
+               };
+
+      ======================Example Code For Custome hook Reuseablity================

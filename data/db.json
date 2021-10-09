@@ -1,0 +1,16 @@
+{
+    "Blogs":[
+        {
+            "title":"lorem 1",
+            "body":"fill the brain with react Js",
+            "author":"sai",
+            "id":"1"
+        },
+        {
+            "title":"lorem 2",
+            "body":"fill the brain with react Js",
+            "author":"saravana",
+            "id":"2"
+        }
+    ]
+}

@@ -376,3 +376,129 @@
                };
 
       ======================Example Code For Custome hook Reuseablity================
+
+//React Router 
+
+          Defenition:
+              its helps to handle the mutiple routes without page refresh.to use this need to install 
+              React-Router_dom 
+                 //commnd to install "npm install react-router-dom"
+                 //import "import { BrowserRouter as Router,Switch,Route} from 'react-router-dom';"
+         
+
+   ====================Example Code For Routing===========================================
+      import NavBar from './components/NavBar';
+      import Home from './components/Home';
+      import { BrowserRouter as Router,Switch,Route} from 'react-router-dom';
+
+      function App() {
+         return (
+            <Router>
+               <div className="App">
+                  <NavBar />
+                  <div className="content">
+                  <Switch>
+                     <Route  path="/"> 
+                        <Home/>
+                     </Route>
+                  </Switch>
+                  </div>
+               </div>
+            </Router>
+         );
+      }
+
+      export default App;
+
+   ====================Example Code For Routing===========================================
+
+   exact prop is used to navigate to exact url for what we in 
+
+   ==============Example Code For Routing========================
+      <Router>
+    <div className="App">
+      <NavBar />
+      <div className="content">
+        <Switch>
+          <Route exact path="/"> 
+              <Home/>
+          </Route>
+          <Route path="/create"> 
+              <Create/>
+          </Route>
+        </Switch>
+      </div>
+    </div>
+    </Router>
+   ==============Example Code For Routing========================
+
+   Sample to Code to Navigate using React router dom
+
+   ==============Example Code For Routing========================
+   const NavBar = () => {
+      return (
+         <div className="navbar">
+            <h2>Sai</h2>
+            <div className="links">
+            <Link to="/">Home</Link>
+            <Link
+               to="/create"
+               style={{
+                  color: "white",
+                  backgroundColor: "#f1356d",
+                  borderRadius: "8px",
+               }}
+            >
+               New Blog
+            </Link>
+            </div>
+         </div>
+      );
+   };
+   ==============Example Code For Routing========================
+
+//AbortController
+        
+         its used to stop a Fecth and to move another and also Know As CleanUp function
+
+      ===============Example Code ===============================
+      const useFetch = (url)=>{
+
+         const [data,setData]=useState(null);
+         const [is_pending,setpending]=useState(true);
+         const [error,seterror]=useState(null);
+            
+              
+
+            useEffect(()=>{
+                const abortCon=new AbortController();
+               fetch(url,{signal: abortCon.signal})
+               .then(res=>{
+                  if(!res.ok)
+                  {
+                     throw Error('Could not get Resource');
+                  }
+                  return res.json();
+               }).then(data=>{
+                  setData(data);
+                  setpending(false);
+                  seterror(null);
+               }).catch(err=>{
+                  if(err.name==="AbortError")
+                  {
+                     console.log("fetch aborted");
+                  }
+                  else
+                  {
+                     setpending(false);
+                     seterror(err.message);
+                  }  
+               })
+                return ()=>abortCon.abort();
+            },[url])
+
+
+            return {data,is_pending,error};
+
+      }
+      ===============Example Code ===============================

@@ -502,3 +502,22 @@
 
       }
       ===============Example Code ===============================
+
+
+useParam 
+       definition: useParam hook is used to get a url parameter form the url 
+
+   ===============Example Code ==================================
+   import { useParams } from "react-router";
+
+         const BlogDetail = () => {
+            const {id}=useParams();
+
+            return ( 
+               <div className="blog-detail">
+                     <h2>Blog Details - {id}</h2>
+               </div>
+            );
+         }
+         export default BlogDetail;
+   ===============Example Code ==================================
